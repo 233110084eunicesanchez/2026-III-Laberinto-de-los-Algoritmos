@@ -12,17 +12,37 @@
     
     <!-- Archivo CSS separado -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Elementos globales -->
     <div id="bg-layer"></div>
     <div id="confetti-global"></div>
 
+    <!-- Barra de Navegación Rápida (para probar todas las vistas directamente) -->
+    <nav style="position: relative; z-index: 9999; background: rgba(17, 24, 39, 0.9); padding: 10px 15px; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; font-family: 'Plus Jakarta Sans', sans-serif; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <span style="color: #10b981; font-weight: 800; font-size: 13px;">🛠️ Navegador:</span>
+        <a href="{% url 'login_custom' %}" style="color: #f3f4f6; text-decoration: none; font-size: 12px; font-weight: 700;">🔑 Login</a>
+        <span style="color: #4b5563;">|</span>
+        <a href="{% url 'panel_admin_custom' %}" style="color: #60a5fa; text-decoration: none; font-size: 12px; font-weight: 700;">👑 Admin Panel</a>
+        <a href="{% url 'admin_crear_usuario' %}" style="color: #60a5fa; text-decoration: none; font-size: 12px; font-weight: 700;">➕ Crear User</a>
+        <span style="color: #4b5563;">|</span>
+        <a href="{% url 'mis_grupos' %}" style="color: #f59e0b; text-decoration: none; font-size: 12px; font-weight: 700;">👨‍🏫 Grupos</a>
+        <a href="{% url 'crear_ejercicio' %}" style="color: #f59e0b; text-decoration: none; font-size: 12px; font-weight: 700;">📝 Ejercicio</a>
+        <span style="color: #4b5563;">|</span>
+        <a href="{% url 'niveles_alumno' %}" style="color: #ec4899; text-decoration: none; font-size: 12px; font-weight: 700;">🎮 Niveles</a>
+        <a href="{% url 'perfil_alumno' %}" style="color: #ec4899; text-decoration: none; font-size: 12px; font-weight: 700;">🏆 Perfil</a>
+    </nav>
+
     <!-- Aquí se inyectará el contenido de las demás páginas -->
-    {% block content %}
-    {% endblock %}
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <!-- Archivo JS separado -->
     <script src="{% static 'js/game.js' %}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
