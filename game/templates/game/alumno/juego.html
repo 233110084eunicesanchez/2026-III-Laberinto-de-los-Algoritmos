@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Jugando: {{ nivel.titulo }}{% endblock %}
+
+{% block content %}
+<div class="game-wrapper card">
+    <a href="{% url 'niveles_alumno' %}" class="back-link">← Volver a Niveles</a>
+    <h2>{{ nivel.titulo }}</h2>
+    <p class="instructions">{{ nivel.descripcion }}</p>
+
+    <div class="canvas-container">
+        <canvas id="canvas-juego" width="600" height="400"></canvas>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/game.js' %}"></script>
+{% endblock %}

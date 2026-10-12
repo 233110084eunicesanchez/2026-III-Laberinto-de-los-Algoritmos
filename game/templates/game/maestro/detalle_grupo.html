@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Grupo - {{ grupo.nombre }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <a href="{% url 'mis_grupos' %}" class="back-link">← Volver a Mis Grupos</a>
+    <h2>Grupo: {{ grupo.nombre }}</h2>
+    <p><strong>Código de Acceso:</strong> <code>{{ grupo.codigo_acceso }}</code></p>
+
+    <h3>Alumnos Inscritos</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.id_usuario }}</td>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.email }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No hay alumnos inscritos en este grupo.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

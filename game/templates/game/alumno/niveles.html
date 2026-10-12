@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Selección de Niveles{% endblock %}
+
+{% block content %}
+<h2>Selecciona un Nivel</h2>
+
+<div class="card-grid">
+    {% for nivel in niveles %}
+        <div class="card level-card">
+            <h3>{{ nivel.titulo }}</h3>
+            <p class="difficulty">Dificultad: Nivel {{ nivel.nivel_dificultad }}</p>
+            <a href="{% url 'jugar_nivel' nivel.id %}" class="btn btn-play">¡Jugar!</a>
+        </div>
+    {% empty %}
+        <p class="empty-msg">No hay ejercicios creados por profesores aún.</p>
+    {% endfor %}
+</div>
+{% endblock %}

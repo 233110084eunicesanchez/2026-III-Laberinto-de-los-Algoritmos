@@ -55,13 +55,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'laberinto_algoridmos.urls'
 
+import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # <-- Importante para encontrar base.html
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -78,8 +81,12 @@ WSGI_APPLICATION = 'laberinto_algoridmos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'laberinto_algoritmos',
+        'USER': 'admin_game',
+        'PASSWORD': 'Laberinto2026',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
