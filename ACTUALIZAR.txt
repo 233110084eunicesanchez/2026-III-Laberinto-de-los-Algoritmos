@@ -1,0 +1,57 @@
+EL LABERINTO DE ALGORITMOS — ACTUALIZACIÓN 3.0 MODULAR
+Actualiza tu versión 2.1 conservando la base, las cuentas y el diseño.
+
+1. Detén el servidor con Ctrl+C y cierra las otras ventanas que lo ejecuten.
+2. Respalda D:\laberinto y haz Backup de la base laberinto en pgAdmin.
+   Guarda ambos respaldos aparte. No borres la base.
+3. Extrae este ZIP en una carpeta temporal distinta de D:\laberinto.
+4. Entra a la carpeta laberinto del ZIP y copia SU CONTENIDO a D:\laberinto.
+   Acepta reemplazar archivos. Debe seguir existiendo D:\laberinto\manage.py.
+   Conserva .env y .venv: no vienen incluidos en este ZIP.
+5. En PowerShell, dentro de D:\laberinto, ejecuta:
+
+   .\.venv\Scripts\python.exe manage.py check
+   .\.venv\Scripts\python.exe manage.py migrate
+
+   Desde 2.1 se aplicarán:
+   preguntas.0001_domain_state
+   escuela.0001_domain_state
+   juego.0001_domain_state
+   progreso.0001_domain_state
+   core.0006_domain_apps
+
+   Todos deben terminar en OK. No uses --fake, no borres migraciones y no
+   arranques el servidor si aparece un error. Comparte el mensaje completo.
+   Las tablas y sus filas se conservan; los permisos pasan al nuevo módulo
+   manteniendo sus identificadores y asignaciones.
+
+   No necesitas reinstalar dependencias, recrear el administrador ni ejecutar
+   seed_initial otra vez. Este último es para la instalación inicial y puede
+   restablecer los permisos de los grupos predeterminados si los personalizaste.
+6. Inicia:
+
+   .\.venv\Scripts\python.exe manage.py runserver
+
+7. Abre http://127.0.0.1:8000/, pulsa Ctrl+F5 e inicia con tus mismas cuentas.
+   Comprueba inicio, una partida, grupos/alumnos del profesor y el historial.
+
+QUÉ CAMBIÓ
+- Apps cuentas, inicio, escuela, preguntas, juego y progreso.
+- Vistas basadas en clases y urls.py con namespace por módulo.
+- Plantillas específicas dentro de cada app; base y componentes compartidos.
+- Modelos de dominio en sus apps, conservando tablas existentes.
+- Controles de acceso centralizados y pruebas adicionales de seguridad.
+- User permanece en core por compatibilidad; el diseño 2.1 se conserva.
+
+Las carpetas templates/core y templates/registration de una instalación vieja
+pueden seguir en tu computadora tras copiar; esta versión usa las nuevas rutas
+explícitas de plantillas y no necesita borrarlas para funcionar.
+
+Si una actualización falla, detén el servidor y conserva el error. No mezcles
+el código anterior con la base ya migrada. Para volver a 2.1 se restauran juntos
+la carpeta respaldada y su base de datos, con el servidor detenido.
+
+Para explicarlo en clase: docs/PARA_EXPLICAR_AL_PROFESOR.md.
+Para estudiar la organización: docs/ARQUITECTURA.md.
+Instalación NUEVA: docs/GUIA_WINDOWS.md. En una instalación nueva sí se utiliza
+seed_initial y se crea un administrador después de aplicar todas las migraciones.
