@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class ProgresoConfig(AppConfig):
-    name = 'progreso'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "progreso"

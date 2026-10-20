@@ -1,0 +1,83 @@
+EL LABERINTO DE ALGORITMOS — CÓMO JUGAR
+
+COMO ALUMNO
+1. Crea tu cuenta eligiendo Alumno y tu edad. El correo es opcional.
+2. En Inicio, haz clic en la imagen de un mundo disponible.
+3. Elige Individual o Dinámico.
+
+INDIVIDUAL
+- Preguntas a la izquierda y laberinto a la derecha. En celular se apilan.
+- Empiezas en A1. La meta cambia y siempre hay una única ruta segura.
+- Cada respuesta correcta mueve el robot una casilla.
+- Hay tantas preguntas como movimientos hasta la meta.
+- El primer error hace que el robot se desvíe hacia un virus y termina el intento.
+- Puedes volver a intentar o salir directamente desde la alerta final.
+- El botón de sonido es opcional; empieza apagado.
+
+DINÁMICO
+- Mínimo dos personas: participante a ciegas y guía.
+- Preparen el tablero físico 5×5. A1 es la esquina inferior izquierda.
+- El guía puede controlar la pantalla desde la cuenta del participante.
+- Al mostrar el tablero se genera la meta y los virus.
+- Alfa y Beta tienen dos rutas seguras; Omega una. Solo movimientos arriba,
+  abajo, izquierda y derecha. Todas las demás casillas son virus.
+- El guía confirma «Llegó a la meta» o «Pisó un virus» según el recorrido real.
+  No hay sensores ni detección automática del tablero físico.
+- Si llegó, contesta cinco preguntas. Gana con tres o más aciertos.
+- No hay pantallas de corrección entre preguntas: el contador se actualiza.
+- El resultado se guarda para quien recorrió y respondió, no para el guía.
+- En «Ver lo que aprendí» aparecen las respuestas y explicaciones al terminar.
+
+TIEMPOS Y MUNDOS
+Alfa: 6–8 años, sin límite de tiempo.
+Beta: 9–11 años, 35 segundos por pregunta.
+Omega: 12–14 años, 30 segundos por pregunta.
+En Beta/Omega el tiempo agotado cuenta como error.
+La edad da acceso a su mundo y a los anteriores. Puedes actualizar tu edad
+cuando cumplas años desde Mi perfil; no se registra fecha de nacimiento.
+También se desbloquea el siguiente mundo al dominar el 80 % del anterior.
+Con 120 preguntas son 96 preguntas DIFERENTES acertadas, aunque la misión
+termine en derrota. Repetir una pregunta ya dominada no aumenta esa cuenta.
+Los mundos desbloqueados no vuelven a bloquearse si crece el banco.
+Las dificultades inicial/intermedia/avanzada se habilitan progresivamente
+para poder alcanzar todo el banco. Tu profesor puede ajustar la dificultad.
+
+COMO PROFESOR
+1. Regístrate como Profesor con nombre, usuario, correo y contraseña.
+2. En Inicio → Añadir alumnos puedes llenar varias filas de nombres/edades
+   o pegar dos columnas de una hoja de cálculo. Ejemplo:
+   Ana;7
+   Luis;10
+3. Elige un grupo existente o escribe uno nuevo en ese mismo formulario.
+   También puedes dejar el grupo vacío y asignarlo después.
+4. Se crean perfiles de clase sin contraseña. El progreso queda guardado
+   para cada participante. No se crea una cuenta de acceso por cada fila.
+5. En Inicio, elige participante y entra en uno de sus mundos.
+6. Desde Alumnos ves su historial y ajustas grupo, categoría y dificultad.
+
+CUENTAS Y PERFILES DE CLASE
+Si el niño desea jugar por su cuenta, se registra como Alumno.
+Si ya tiene un perfil creado por el profesor, este abre Alumnos → Ver y le
+entrega EN PRIVADO su código personal de vinculación. El alumno usa
+«Vincular mi perfil de clase» desde Inicio. Ambos historiales se combinan
+sin perder aciertos. El código es de un solo uso y no se comparte al grupo.
+El código DE GRUPO es diferente: solo inscribe en el grupo y no reclama
+un perfil existente. No uses ambos para intentar crear perfiles duplicados.
+
+CORREO Y PROGRESO
+El progreso pertenece al identificador del perfil en PostgreSQL, no al correo.
+Cambiar el correo no borra resultados. Si llevas el proyecto a internet,
+se trasladan la base y sus datos; no basta con copiar el código.
+Puedes añadir o cambiar tu correo en Mi perfil.
+«Olvidé mi contraseña» funciona con cuentas que tienen correo guardado.
+En local, el enlace de recuperación se muestra en la terminal del servidor.
+Para enviar mensajes reales hace falta configurar un proveedor SMTP.
+No hay verificación de titularidad del correo en esta versión.
+
+ASPECTO Y ANIMACIONES — 2.1
+Cada categoría tiene su escenario y compañero. Alfa celebra con confeti;
+Beta con chispas de luz; Omega neutraliza la infección con una red azul.
+El robot de Omega lleva sombrero blanco: tú eres el superhacker que lo guía.
+En la partida puedes alternar Animación: completa/reducida. La preferencia
+se conserva en ese navegador y respeta inicialmente la del dispositivo.
+Reducir animaciones no modifica los cronómetros ni las reglas.

@@ -1,13 +1,7 @@
-# Entornos virtuales
-venv/
-env/
-
-# Base de datos local
-db.sqlite3
-
-# Archivos compilados de Python
-*.pyc
-__pycache__/
-
-# Variables de entorno
 .env
+.venv/
+__pycache__/
+*.pyc
+*.sqlite3
+staticfiles/
+respaldos/

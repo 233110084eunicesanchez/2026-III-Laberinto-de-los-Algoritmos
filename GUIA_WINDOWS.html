@@ -1,0 +1,143 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Guía Windows · El laberinto</title><style>body{max-width:900px;margin:40px auto;padding:0 22px;font:17px/1.6 system-ui;color:#17304f;background:#f3f8ff}h1,h2{color:#07539b}pre{padding:18px;background:#0a2140;color:#c3ffed;overflow:auto;border-radius:12px}table{border-collapse:collapse}td,th{border:1px solid #b4cce0;padding:10px}code{font-size:.9em}</style><body><h1>Vamos a levantar tu proyecto en Windows · versión 2.0</h1>
+<p><strong>Si ya funciona tu instalación en D:\laberinto, sigue ACTUALIZAR.txt. No recrees la base ni las cuentas.</strong></p>
+<h2>1. Extraer y abrir la carpeta</h2>
+<p>Extrae el ZIP completo, por ejemplo en <code>Documentos\laberinto</code>. No ejecutes los archivos dentro del ZIP. Abre la carpeta que contiene <code>manage.py</code>, <code>requirements.txt</code> y <code>preparar.py</code>. Haz clic en la barra de dirección del Explorador, escribe <code>powershell</code> y pulsa Enter. Los comandos siguientes se ejecutan en esa carpeta.</p>
+<h2>2. Comprobar Python</h2>
+<pre><code class="language-powershell">py --list
+</code></pre>
+<p>Recomendado: Python 3.12 o 3.13. Los comandos de esta guía usan Python 3.13. Django 5.2 admite Python 3.10–3.14. No hace falta reinstalar si ya tienes una versión compatible.</p>
+<pre><code class="language-powershell">py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe preparar.py
+</code></pre>
+<p>No necesitas activar el entorno ni modificar las políticas de PowerShell. La primera instalación sí necesita internet.</p>
+<h2>3. Crear una base nueva con pgAdmin 4</h2>
+<p>PostgreSQL es el servidor de datos; pgAdmin es su administrador visual. La contraseña maestra de pgAdmin y la contraseña del usuario de PostgreSQL pueden ser diferentes. Necesitas PostgreSQL 14 o posterior.</p>
+<ol>
+<li>Abre pgAdmin y conéctate a tu servidor PostgreSQL.</li>
+<li>En <strong>Login/Group Roles</strong>, clic derecho → <strong>Create → Login/Group Role</strong>.</li>
+<li>En General, nombre: <code>laberinto_app</code>.</li>
+<li>En Definition, escribe una contraseña nueva y guárdala de forma privada.</li>
+<li>En Privileges, activa <strong>Can login?</strong>. Deja superuser y creación de roles desactivados. Guarda.</li>
+<li>En <strong>Databases</strong>, clic derecho → <strong>Create → Database</strong>.</li>
+<li>Nombre: <code>laberinto</code>. Owner: <code>laberinto_app</code>. Guarda.</li>
+</ol>
+<p>No reutilices la base desordenada del proyecto anterior. Si alguno de estos nombres ya existe, utiliza otro y escríbelo en <code>.env</code>.</p>
+<h2>4. Conectar Django con PostgreSQL</h2>
+<p>Abre el archivo <code>.env</code> creado por <code>preparar.py</code>, desde VS Code o Bloc de notas. Cambia estos valores:</p>
+<pre><code class="language-text">DB_NAME=laberinto
+DB_USER=laberinto_app
+DB_PASSWORD=&quot;tu contraseña de PostgreSQL&quot;
+DB_HOST=localhost
+DB_PORT=5432
+</code></pre>
+<p>Usa comillas dobles si la contraseña contiene espacios o <code>#</code>. Si contiene comillas dobles, escápalas según el formato dotenv o usa comillas simples si no contiene apóstrofes. No envíes <code>.env</code> por chat ni lo publiques. Conserva la clave aleatoria <code>DJANGO_SECRET_KEY</code> que generó el script. Deja <code>DJANGO_DEBUG=True</code> para la instalación local.</p>
+<h2>5. Crear tablas y cargar el contenido</h2>
+<pre><code class="language-powershell">.\.venv\Scripts\python.exe manage.py check --database default
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py seed_initial
+.\.venv\Scripts\python.exe manage.py createsuperuser
+</code></pre>
+<p><code>migrate</code> crea las tablas; no tienes que diseñarlas manualmente en pgAdmin. <code>seed_initial</code> carga categorías, roles y 360 preguntas. Puedes repetirlo sin duplicar preguntas ni sobrescribir cambios.</p>
+<p><code>createsuperuser</code> crea TU cuenta de administrador. El correo puede dejarse vacío. Al escribir la contraseña en la terminal no se muestran caracteres: es normal.</p>
+<p>No necesitas crear profesores por PowerShell. Después de encender el proyecto, en la pantalla de acceso pulsa <strong>Crea tu cuenta</strong> y selecciona <strong>Profesor</strong> o <strong>Alumno</strong>. El usuario administrador que acabas de crear conserva su acceso habitual.</p>
+<h2>6. Encender</h2>
+<pre><code class="language-powershell">.\.venv\Scripts\python.exe manage.py runserver
+</code></pre>
+<p>En el navegador abre http://127.0.0.1:8000/ . Conserva abierta la terminal mientras juegas. Para detener el programa pulsa Ctrl+C. Después de esta primera instalación puedes usar <code>iniciar_windows.bat</code> con doble clic.</p>
+<p>PostgreSQL debe estar iniciado como servicio de Windows. pgAdmin puede estar cerrado mientras juegas.</p>
+<h2>7. Tu primera partida</h2>
+<ol>
+<li>Crea una cuenta Alumno con nombre/alias, usuario, edad y contraseña. El correo es opcional.</li>
+<li>Haz clic en la tarjeta de un mundo disponible y elige <strong>Individual</strong>.</li>
+<li>Cada acierto mueve el robot. Alfa no tiene reloj; Beta da 35 s y Omega 30 s. El primer error termina la partida con la animación del virus.</li>
+<li>En la alerta puedes <strong>Volver a intentar</strong>, salir o ver las explicaciones. Los aciertos únicos se conservan.</li>
+<li>Para jugar con el tablero físico elige <strong>Dinámico</strong>. El guía controla la misma sesión, confirma llegada/virus y después el participante responde cinco preguntas. Gana con tres aciertos. Preparen el espacio físico con supervisión y sin obstáculos.</li>
+<li>Como Profesor, registra tu cuenta con correo y abre <strong>Añadir alumnos</strong>: nombres y edades en filas, con grupo existente o nuevo en el mismo paso. No exige contraseñas por alumno.</li>
+<li>En Inicio elige participante y haz clic en su mundo. Su progreso se guarda aunque todavía no tenga cuenta personal.</li>
+</ol>
+<p><code>COMO_JUGAR.txt</code> explica ambos modos, los códigos de vinculación y el 80 % de preguntas diferentes. Una cuenta de alumno puede jugar de forma independiente o vincularse posteriormente a su perfil escolar.</p>
+<p>Para proyección, en Dinámico usa <strong>Abrir pantalla</strong>. La vista de lectura no tiene controles. El guía confirma el tablero desde la pantalla principal.</p>
+<h2>8. Usar celular y computadora en la misma red</h2>
+<ol>
+<li>Conecta ambos dispositivos a la misma red Wi-Fi de confianza.</li>
+<li>Ejecuta <code>ipconfig</code> en la computadora. Localiza su dirección IPv4, por ejemplo <code>192.168.1.50</code>.</li>
+<li>En <code>.env</code>, añade ESA dirección a <code>DJANGO_ALLOWED_HOSTS</code>:</li>
+</ol>
+<pre><code class="language-text">DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,192.168.1.50
+</code></pre>
+<ol>
+<li>Detén el servidor e inicia:</li>
+</ol>
+<pre><code class="language-powershell">.\.venv\Scripts\python.exe manage.py runserver 0.0.0.0:8000
+</code></pre>
+<ol>
+<li>Si Windows pregunta por el firewall, autoriza Python solo en redes privadas. No abras puertos del router.</li>
+<li>En el celular abre <code>http://192.168.1.50:8000/</code> (sustituye la IP). Entra con la cuenta del profesor y abre la misma partida desde el historial.</li>
+<li>En la computadora usa esa dirección IP también para que el enlace “Abrir pantalla” se pueda copiar a otros dispositivos.</li>
+</ol>
+<p>El control responde por consultas periódicas, aproximadamente cada 0.7 s. Una pantalla pública no puede contestar ni cambiar resultados. Si no abre, comprueba IP, firewall y si la Wi-Fi impide comunicación entre dispositivos. HTTP local no cifra credenciales: úsalo solo en una red de confianza; para internet se requiere HTTPS.</p>
+<h2>9. Problemas frecuentes</h2>
+<table>
+<thead>
+<tr>
+<th>Mensaje o situación</th>
+<th>Qué revisar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>py</code> no se reconoce</td>
+<td>Python instalado y su lanzador de Windows. Cierra y vuelve a abrir PowerShell.</td>
+</tr>
+<tr>
+<td>No se encuentra Python 3.13</td>
+<td>Usa la versión compatible que aparezca en <code>py --list</code>.</td>
+</tr>
+<tr>
+<td><code>connection refused</code></td>
+<td>Servicio PostgreSQL iniciado, host y puerto correctos.</td>
+</tr>
+<tr>
+<td><code>password authentication failed</code></td>
+<td>Usuario y contraseña de PostgreSQL en <code>.env</code>, no la contraseña maestra de pgAdmin.</td>
+</tr>
+<tr>
+<td>Base de datos inexistente</td>
+<td>Nombre de base en pgAdmin y en <code>.env</code>.</td>
+</tr>
+<tr>
+<td>Permiso denegado para crear tablas</td>
+<td>La base debe pertenecer a <code>laberinto_app</code>.</td>
+</tr>
+<tr>
+<td><code>DisallowedHost</code> desde el celular</td>
+<td>Añade la IP exacta a <code>DJANGO_ALLOWED_HOSTS</code> y reinicia.</td>
+</tr>
+<tr>
+<td>No hay tablas / <code>relation does not exist</code></td>
+<td>Ejecuta <code>migrate</code> con la misma configuración que utiliza el servidor.</td>
+</tr>
+<tr>
+<td>Faltan roles o preguntas</td>
+<td>Ejecuta <code>seed_initial</code> después de <code>migrate</code>.</td>
+</tr>
+<tr>
+<td>Puerto ocupado</td>
+<td>Detén el otro proceso o usa <code>runserver 8001</code> y abre el puerto 8001.</td>
+</tr>
+<tr>
+<td>Contraseña olvidada</td>
+<td>Usa «Olvidé mi contraseña» si tienes correo guardado; en local el enlace aparece en PowerShell. Como alternativa administrativa, ejecuta <code>.\.venv\Scripts\python.exe manage.py changepassword nombre_usuario</code>.</td>
+</tr>
+<tr>
+<td>No avanza una pregunta</td>
+<td>Revisa la conexión; recargar conserva el intento. Si la sesión venció, vuelve a entrar y abre el historial.</td>
+</tr>
+</tbody>
+</table>
+<h2>10. Respaldo y comprobación final</h2>
+<p>En pgAdmin, clic derecho sobre <code>laberinto</code> → <strong>Backup</strong>, formato Custom, elige un archivo <code>.backup</code> y ejecútalo. Guarda también el código y <code>.env</code> de forma privada. El ZIP del código no contiene tus alumnos ni sus resultados: esos viven en PostgreSQL.</p>
+<p>Prueba con un alumno ficticio: completar misión, pisar virus, agotar tiempo, jugar Individual como alumno, recargar y verificar que otro profesor no vea esos datos. No borres alumnos reales para probar.</p>
+<p>Para ejecutar <code>manage.py test core</code> contra PostgreSQL, Django crea una base temporal <code>test_laberinto</code>. Usa una cuenta de pruebas con permiso CREATEDB en un servidor de desarrollo; no otorgues ese permiso a la cuenta de producción ni ejecutes las pruebas sobre producción.</p>
+<p>Cuando nos compartas un error, manda su texto o captura ocultando contraseñas. No hace falta compartir <code>.env</code>.</p></body></html>
