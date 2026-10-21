@@ -1,1 +1,19 @@
-{% if is_paginated %}<div class="actions pagination">{% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q|urlencode }}&mode={{ request.GET.mode|urlencode }}">← Anterior</a>{% endif %}<span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>{% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q|urlencode }}&mode={{ request.GET.mode|urlencode }}">Siguiente →</a>{% endif %}</div>{% endif %}
+{% if is_paginated %}
+<div class="actions pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&amp;q={{ request.GET.q|urlencode }}&amp;mode={{ request.GET.mode|urlencode }}&amp;result={{ request.GET.result|urlencode }}">
+        ← Anterior
+    </a>
+    {% endif %}
+
+    <span>
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&amp;q={{ request.GET.q|urlencode }}&amp;mode={{ request.GET.mode|urlencode }}&amp;result={{ request.GET.result|urlencode }}">
+        Siguiente →
+    </a>
+    {% endif %}
+</div>
+{% endif %}

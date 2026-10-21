@@ -16,9 +16,18 @@ class History(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = attempts_for(self.request.user)
-        mode = self.request.GET.get("mode")
-        return qs.filter(mode=mode) if mode in ["mission", "practice", "solo"] else qs
 
+        mode = self.request.GET.get("mode")
+        if mode in ["mission", "practice", "solo"]:
+            qs = qs.filter(mode=mode)
+
+        result = self.request.GET.get("result")
+        if result == "won":
+            qs = qs.filter(state="won")
+        elif result == "lost":
+            qs = qs.filter(state__in=["lost", "virus"])
+
+        return qs
 
 class ResultView(AttemptAccessMixin, View):
     def get(self, request, pk):

@@ -1,1 +1,39 @@
-{% extends 'base.html' %}{% block content %}<span class="eyebrow">CADA INTENTO CUENTA</span><h1>Historial de aventuras</h1><div class="filters"><a href="?">Todos</a><a href="?mode=mission">Misiones físicas</a><a href="?mode=solo">Individual</a><a href="?mode=practice">Prácticas anteriores</a></div>{% include 'progreso/attempt_table.html' with attempts=object_list %}{% include 'shared/pagination.html' %}{% endblock %}
+{% extends 'base.html' %}
+
+{% block content %}
+<span class="eyebrow">CADA INTENTO CUENTA</span>
+<h1>Historial de aventuras</h1>
+
+<form method="get" class="filters">
+    <label for="mode">Modalidad</label>
+    <select name="mode" id="mode">
+        <option value="">Todas las modalidades</option>
+        <option value="mission" {% if request.GET.mode == 'mission' %}selected{% endif %}>
+            Misiones físicas
+        </option>
+        <option value="solo" {% if request.GET.mode == 'solo' %}selected{% endif %}>
+            Individual
+        </option>
+        <option value="practice" {% if request.GET.mode == 'practice' %}selected{% endif %}>
+            Prácticas anteriores
+        </option>
+    </select>
+
+    <label for="result">Resultado</label>
+    <select name="result" id="result">
+        <option value="">Todos los resultados</option>
+        <option value="won" {% if request.GET.result == 'won' %}selected{% endif %}>
+            Ganadas
+        </option>
+        <option value="lost" {% if request.GET.result == 'lost' %}selected{% endif %}>
+            Perdidas
+        </option>
+    </select>
+
+    <button type="submit">Aplicar filtros</button>
+    <a href="{% url 'progreso:history' %}">Limpiar filtros</a>
+</form>
+
+{% include 'progreso/attempt_table.html' with attempts=object_list %}
+{% include 'shared/pagination.html' %}
+{% endblock %}
