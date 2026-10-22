@@ -1,4 +1,32 @@
-{% extends 'base.html' %}{% load static %}{% block title %}Crea tu cuenta · El laberinto{% endblock %}{% block content %}
-<div class="login-layout signup-layout"><section class="login-story"><a class="eyebrow" href="{% url 'cuentas:login' %}">EL LABERINTO DE ALGORITMOS</a><h1>Tu aventura.<br>Tu forma de <em>aprender.</em></h1><p>Elige cómo quieres participar. Tu espacio estará listo desde el primer momento.</p><div class="signup-feature"><strong>♙ &nbsp; Alumno</strong><p>Practica a tu ritmo, descubre tu categoría y sigue tu progreso. Unirte a un grupo es opcional.</p></div><div class="signup-feature"><strong>▦ &nbsp; Profesor</strong><p>Crea grupos, invita a tus alumnos y acompaña sus misiones.</p></div><a class="button light" href="{% url 'cuentas:login' %}">Ya tengo cuenta →</a></section>
-<section class="panel login-form"><span class="eyebrow">CREA TU CUENTA</span><h2>Un lugar para ti</h2><p class="muted">Elige tu rol y crea tu cuenta.</p><form method="post" id="signup-form">{% csrf_token %}{{ form.non_field_errors }}<fieldset class="role-picker"><legend>{{ form.role.label }}</legend>{{ form.role.errors }}{% for radio in form.role %}<label class="role-choice">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>{% endfor %}</fieldset>
-{% for field in form %}{% if field.name != 'role' %}<div class="signup-field{% if field.name == 'age' or field.name == 'group_code' %} student-only{% endif %}">{{ field.errors }}{{ field.label_tag }}{{ field }}{% if field.help_text %}<div class="helptext">{{ field.help_text|safe }}</div>{% endif %}</div>{% endif %}{% endfor %}<button class="button wide">Crear mi cuenta →</button></form><p class="muted small registration-link">¿Ya tienes cuenta? <a href="{% url 'cuentas:login' %}">Inicia sesión</a></p></section></div>{% endblock %}{% block scripts %}<script src="{% static 'registration.js' %}"></script>{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Crea tu cuenta · El laberinto{% endblock %}
+{% block content %}
+<div class="login-layout signup-layout">
+    <section class="login-story"><a class="eyebrow" href="{% url 'cuentas:login' %}">EL LABERINTO DE ALGORITMOS</a>
+        <h1>Tu aventura.<br>Tu forma de <em>aprender.</em></h1>
+        <p>Elige cómo quieres participar. Tu espacio estará listo desde el primer momento.</p>
+        <div class="signup-feature"><strong>♙ &nbsp; Alumno</strong>
+            <p>Practica a tu ritmo, descubre tu categoría y sigue tu progreso. Unirte a un grupo es opcional.</p>
+        </div>
+        <div class="signup-feature"><strong>▦ &nbsp; Profesor</strong>
+            <p>Crea grupos, invita a tus alumnos y acompaña sus misiones.</p>
+        </div><a class="button light" href="{% url 'cuentas:login' %}">Ya tengo cuenta →</a>
+    </section>
+    <section class="panel login-form"><span class="eyebrow">CREA TU CUENTA</span>
+        <h2>Un lugar para ti</h2>
+        <p class="muted">Elige tu rol y crea tu cuenta.</p>
+        <form method="post" id="signup-form">{% csrf_token %}{{ form.non_field_errors }}<fieldset class="role-picker">
+                <legend>{{ form.role.label }}</legend>{{ form.role.errors }}{% for radio in form.role %}<label
+                    class="role-choice">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>{% endfor %}
+            </fieldset>
+            {% for field in form %}{% if field.name != 'role' %}<div
+                class="signup-field{% if field.name == 'age' or field.name == 'group_code' %} student-only{% endif %}">
+                {{ field.errors }}{{ field.label_tag }}{{ field }}{% if field.help_text %}<div class="helptext">{{ field.help_text|safe }}</div>{% endif %}</div>{% endif %}{% endfor %}<button
+                class="button wide">Crear mi cuenta →</button></form>
+        <p class="muted small registration-link">¿Ya tienes cuenta? <a href="{% url 'cuentas:login' %}">Inicia
+                sesión</a></p>
+    </section>
+</div>{% endblock %}{% block scripts %}
+<script src="{% static 'registration.js' %}"></script>
+<script src="{% static 'password-toggle.js' %}" defer></script>{% endblock %}
